@@ -44,6 +44,7 @@ void Ticker::start() {
 	enabled = true;
 	counts = 0;
 	status = RUNNING;
+	if (callback != NULL) callback(START);
 	}
 
 void Ticker::resume() {
@@ -53,12 +54,14 @@ void Ticker::resume() {
 	if (status == STOPPED) counts = 0;
 	enabled = true;
 	status = RUNNING;
+	if (callback != NULL) callback(RESUME);
 	}
 
 void Ticker::stop() {
 	enabled = false;
 	counts = 0;
 	status = STOPPED;
+	if (callback != NULL) callback(STOP);
 	}
 
 void Ticker::pause() {
@@ -66,10 +69,11 @@ void Ticker::pause() {
 	else diffTime = micros() - lastTime;
 	enabled = false;
 	status = PAUSED;
+	if (callback != NULL) callback(PAUSE);
 	}
 
 void Ticker::update() {
-	if (tick()) callback();
+	if (tick()) callback(UPDATE);
 	}
 
 bool Ticker::tick() {

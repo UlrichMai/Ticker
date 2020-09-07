@@ -44,7 +44,9 @@ enum resolution_t {MICROS, MILLIS, MICROS_MICROS};
  */
 enum status_t {STOPPED, RUNNING, PAUSED};
 
-typedef void (*fptr)();
+enum event_t {START,RESUME,STOP,PAUSE,UPDATE};
+
+typedef void (*fptr)(event_t);
 
 class Ticker {
 
